@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+/* ── JurifyLaw Purple & Lavender Light Theme Tokens ─── */
+:root {
+  --bg-primary: #f8f7fc;
+  --bg-secondary: #f3f0fc;
+  --bg-card: #ffffff;
+  --border-subtle: #ede9fe;
+  --border-card: rgba(221, 214, 254, 0.7);
+
+  --text-primary: #1e1b4b;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --text-purple: #7c3aed;
+
+  --accent-purple: #7c3aed;
+  --accent-purple-dark: #6d28d9;
+  --accent-purple-light: #f5f3ff;
+  --accent-indigo: #4f46e5;
+  
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-rose: #ef4444;
+}
+
+/* ── Base Styles ──────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── White Rounded Cards ──────────────────────────── */
+.glass-card,
+.white-card {
+  background: #ffffff;
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: all 0.25s ease;
+}
+
+.glass-card:hover {
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+.glass-card-static {
+  background: #ffffff;
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  box-shadow: 0 4px 25px rgba(124, 58, 237, 0.05);
+}
+
+/* ── Purple Gradient Text ─────────────────────────── */
+.gradient-text {
+  color: #1e1b4b;
+}
+
+.purple-gradient-text {
+  background: linear-gradient(135deg, #6d28d9 0%, #7c3aed 50%, #4f46e5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Purple Buttons ───────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 11px 24px;
+  border-radius: 14px;
+  transition: all 0.25s ease;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: #6d28d9;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 14px;
+  transition: all 0.25s ease;
+  border: 1.5px solid #7c3aed;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.92rem;
+}
+
+.btn-secondary:hover {
+  background: #f5f3ff;
+  border-color: #6d28d9;
+  transform: translateY(-1px);
+}
+
+/* ── Form Inputs ──────────────────────────────────── */
+.input-field {
+  width: 100%;
+  padding: 11px 16px;
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  color: #1f2937;
+  font-size: 0.92rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input-field::placeholder {
+  color: #9ca3af;
+}
+
+.input-field:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3.5px rgba(124, 58, 237, 0.12);
+}
+
+/* ── Badges ────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid;
+}
+
+.badge-safe {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #059669;
+}
+
+.badge-caution {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #d97706;
+}
+
+.badge-risky {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+.badge-purple {
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+  color: #6d28d9;
+}
+
+/* ── Scrollbars ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f0fc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c4b5fd;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a78bfa;
+}
