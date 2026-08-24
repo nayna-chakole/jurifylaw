@@ -74,14 +74,3 @@ export const analysisAPI = {
   result: (documentId: number) =>
     api.get(`/api/analysis/${documentId}/result`),
 };
-
-// ── Chat API ──────────────────────────────────────────
-export const chatAPI = {
-  createSession: (data: { title: string; document_id?: number | null }) =>
-    api.post("/api/chat/sessions", data),
-  listSessions: () => api.get("/api/chat/sessions"),
-  getSession: (sessionId: number) =>
-    api.get(`/api/chat/sessions/${sessionId}`),
-  sendMessage: (sessionId: number, content: string) =>
-    api.post(`/api/chat/sessions/${sessionId}/messages`, { content }),
-};

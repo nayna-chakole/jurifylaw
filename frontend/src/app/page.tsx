@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ShieldCheck,
-  MessageSquare,
   FileText,
   Lightbulb,
   Upload,
@@ -23,9 +22,9 @@ const features = [
     description: "Identify risky clauses and potential issues with confidence scores.",
   },
   {
-    icon: MessageSquare,
-    title: "AI Chat",
-    description: "Ask questions and get instant, context-aware AI answers.",
+    icon: Scale,
+    title: "Entity & Obligations",
+    description: "Extract parties, deadlines, dates, and financial commitments automatically.",
   },
   {
     icon: FileText,

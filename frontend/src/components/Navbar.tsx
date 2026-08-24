@@ -23,11 +23,10 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // In authenticated app pages (Dashboard, Analysis, Chat, History, Profile), show app links
+  // In authenticated app pages (Dashboard, Analysis, History, Profile), show app links
   const isAppRoute =
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/analysis") ||
-    pathname.startsWith("/chat") ||
     pathname.startsWith("/history") ||
     pathname.startsWith("/profile") ||
     pathname.startsWith("/upload");
@@ -87,14 +86,6 @@ export default function Navbar() {
                 }`}
               >
                 Dashboard
-              </Link>
-              <Link
-                href="/chat"
-                className={`transition-colors hover:text-[#7C3AED] ${
-                  pathname === "/chat" ? "text-[#7C3AED] font-semibold" : ""
-                }`}
-              >
-                Chat
               </Link>
               <Link
                 href="/history"

@@ -5,16 +5,16 @@ import Link from "next/link";
 import {
   UploadCloud,
   FileText,
-  MessageSquare,
+  ShieldCheck,
   ArrowRight,
   Sparkles,
-  Clock,
   CheckCircle2,
   Loader2,
+  Scale,
 } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import { useAuth } from "@/lib/auth-context";
-import { documentsAPI, chatAPI } from "@/lib/api";
+import { documentsAPI } from "@/lib/api";
 
 interface DocItem {
   id: number;
@@ -27,63 +27,23 @@ interface DocItem {
   badge?: string;
 }
 
-interface ChatItem {
-  id: number;
-  title: string;
-  created_at: string;
-}
-
-const defaultRecentDocs: DocItem[] = [
-  {
-    id: 1,
-    name: "Rental Agreement.pdf",
-    date: "12 May 2024",
-    risk: "72% (High)",
-    badge: "badge-risky",
-  },
-  {
-    id: 2,
-    name: "Employment Contract.pdf",
-    date: "10 May 2024",
-    risk: "45% (Medium)",
-    badge: "badge-caution",
-  },
-  {
-    id: 3,
-    name: "NDA.pdf",
-    date: "08 May 2024",
-    risk: "20% (Low)",
-    badge: "badge-safe",
-  },
-];
-
 export default function DashboardPage() {
   const { user } = useAuth();
-  const userName = user?.full_name || "Adam";
+  const userName = user?.full_name || "Legal Pro";
 
   const [documents, setDocuments] = useState<DocItem[]>([]);
-  const [chats, setChats] = useState<ChatItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadDashboardData = async () => {
       try {
         setLoading(true);
-        const [docsRes, chatsRes] = await Promise.allSettled([
-          documentsAPI.list(1, 4),
-          chatAPI.listSessions(),
-        ]);
+        const docsRes = await documentsAPI.list(1, 6);
 
-        if (docsRes.status === "fulfilled" && docsRes.value.data?.items?.length > 0) {
-          setDocuments(docsRes.value.data.items);
+        if (docsRes.data?.items?.length > 0) {
+          setDocuments(docsRes.data.items);
         } else {
           setDocuments([]);
-        }
-
-        if (chatsRes.status === "fulfilled" && chatsRes.value.data?.length > 0) {
-          setChats(chatsRes.value.data.slice(0, 4));
-        } else {
-          setChats([]);
         }
       } catch (err) {
         console.error("Dashboard fetch error:", err);
@@ -100,7 +60,7 @@ export default function DashboardPage() {
       {/* Fixed Left Sidebar */}
       <Sidebar />
 
-      {/* Main Content Area with proper padding */}
+      {/* Main Content Area */}
       <div className="flex-1 p-6 sm:p-8 lg:p-10 max-w-6xl space-y-8 min-w-0">
         {/* Welcome Header */}
         <div className="pt-2">
@@ -133,7 +93,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Two Side-by-Side Cards: Recent Documents & Chat History */}
+        {/* Two Side-by-Side Cards: Recent Documents & Analysis Insights */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Recent Documents Card */}
           <div className="bg-white rounded-3xl p-6 border border-purple-100/80 shadow-xs flex flex-col justify-between">
@@ -165,7 +125,7 @@ export default function DashboardPage() {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {documents.map((doc) => {
+                  {documents.slice(0, 4).map((doc) => {
                     const docName = doc.original_filename || doc.name || `Document #${doc.id}`;
                     const docDate = doc.created_at
                       ? new Date(doc.created_at).toLocaleDateString("en-US", {
@@ -223,71 +183,61 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Chat History Card */}
+          {/* Analysis Features & Diagnostics Card */}
           <div className="bg-white rounded-3xl p-6 border border-purple-100/80 shadow-xs flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
-                <h3 className="text-base font-bold text-[#1E1B4B]">Chat History</h3>
-                <Link
-                  href="/chat"
-                  className="text-xs font-semibold text-[#7C3AED] hover:text-[#6D28D9] transition-colors"
-                >
-                  Open Chat
-                </Link>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                <h3 className="text-base font-bold text-[#1E1B4B]">Contract Intelligence</h3>
+                <span className="text-xs font-semibold text-[#7C3AED] flex items-center gap-1">
+                  <Sparkles className="h-3.5 w-3.5" /> Automated
+                </span>
               </div>
 
-              {loading ? (
-                <div className="py-8 text-center flex items-center justify-center gap-2 text-xs text-slate-400">
-                  <Loader2 className="h-4 w-4 animate-spin text-[#7C3AED]" /> Loading...
-                </div>
-              ) : chats.length === 0 ? (
-                <div className="py-8 text-center space-y-2 bg-purple-50/20 rounded-2xl p-4 border border-dashed border-purple-100">
-                  <MessageSquare className="h-8 w-8 text-slate-300 mx-auto" />
-                  <div className="text-xs font-semibold text-slate-600">No chat sessions yet</div>
-                  <p className="text-[11px] text-slate-400">Start asking legal questions to your contracts.</p>
-                  <div className="pt-2">
-                    <Link href="/chat" className="btn-primary !text-xs !py-1.5 !px-3">
-                      Start New Chat
-                    </Link>
+              <div className="space-y-3">
+                <div className="p-3.5 rounded-2xl bg-purple-50/50 border border-purple-100/60 flex items-start gap-3">
+                  <div className="h-8 w-8 rounded-xl bg-purple-100 text-[#7C3AED] flex items-center justify-center shrink-0 mt-0.5">
+                    <ShieldCheck className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-[#1E1B4B]">Clause Risk Scoring</h4>
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                      Evaluates high, medium, and low liability clauses with confidence metrics.
+                    </p>
                   </div>
                 </div>
-              ) : (
-                <div className="space-y-3">
-                  {chats.map((chat) => (
-                    <Link
-                      key={chat.id}
-                      href="/chat"
-                      className="flex items-center justify-between p-3 rounded-2xl bg-purple-50/40 hover:bg-purple-50 border border-purple-100/60 transition-all group"
-                    >
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div className="h-9 w-9 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
-                          <MessageSquare className="h-5 w-5" />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="text-xs sm:text-sm font-semibold text-[#1E1B4B] group-hover:text-[#7C3AED] transition-colors truncate">
-                            {chat.title}
-                          </div>
-                          <div className="text-[11px] text-slate-400">
-                            {new Date(chat.created_at).toLocaleDateString("en-US", {
-                              day: "2-digit",
-                              month: "short",
-                              year: "numeric",
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
+
+                <div className="p-3.5 rounded-2xl bg-indigo-50/50 border border-indigo-100/60 flex items-start gap-3">
+                  <div className="h-8 w-8 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Scale className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-[#1E1B4B]">Entity & Obligation Extraction</h4>
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                      Identifies parties, payment milestones, due dates, and jurisdictions automatically.
+                    </p>
+                  </div>
                 </div>
-              )}
+
+                <div className="p-3.5 rounded-2xl bg-emerald-50/50 border border-emerald-100/60 flex items-start gap-3">
+                  <div className="h-8 w-8 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle2 className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-[#1E1B4B]">Plain-Language Summaries</h4>
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                      Synthesizes lengthy legal agreements into concise, executive summaries.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="pt-4 mt-2 text-right border-t border-slate-50">
               <Link
-                href="/chat"
-                className="text-xs font-bold text-[#7C3AED] hover:underline"
+                href="/upload"
+                className="text-xs font-bold text-[#7C3AED] hover:underline inline-flex items-center gap-1"
               >
-                Open AI Chat →
+                <span>Analyze New Contract →</span>
               </Link>
             </div>
           </div>

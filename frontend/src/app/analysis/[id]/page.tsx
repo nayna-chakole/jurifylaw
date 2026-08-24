@@ -518,12 +518,18 @@ export default function AnalysisResultPage() {
         </div>
 
         {/* ── Bottom Action Links ── */}
-        <div className="text-center pt-2 flex items-center justify-center gap-4">
+        <div className="text-center pt-2 flex items-center justify-center gap-4 flex-wrap">
           <Link
-            href={id && id !== "sample" ? `/chat?document_id=${id}` : "/chat"}
+            href="/upload"
             className="btn-primary !px-8 !py-3.5 !rounded-xl !text-sm shadow-md"
           >
-            Chat with AI about this Document →
+            Upload Another Document →
+          </Link>
+          <Link
+            href="/history"
+            className="btn-secondary !px-8 !py-3.5 !rounded-xl !text-sm shadow-sm"
+          >
+            View Document History
           </Link>
         </div>
       </div>

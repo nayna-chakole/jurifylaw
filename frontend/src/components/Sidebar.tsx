@@ -6,7 +6,6 @@ import {
   LayoutDashboard,
   UploadCloud,
   FileText,
-  MessageSquare,
   User,
   LogOut,
   Scale,
@@ -17,7 +16,6 @@ const sidebarItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/upload", label: "Upload Document", icon: UploadCloud },
   { href: "/history", label: "Recent Documents", icon: FileText },
-  { href: "/chat", label: "Chat History", icon: MessageSquare },
   { href: "/profile", label: "Profile", icon: User },
 ];
 

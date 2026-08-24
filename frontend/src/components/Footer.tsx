@@ -9,7 +9,6 @@ export default function Footer() {
 
   // Hide footer on app-level workspaces for clean full-height layouts
   const isAppRoute =
-    pathname.startsWith("/chat") ||
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/analysis") ||
     pathname.startsWith("/upload") ||
