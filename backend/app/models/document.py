@@ -36,4 +36,3 @@ class Document(Base):
     user = relationship("User", back_populates="documents")
     analysis = relationship("Analysis", back_populates="document", cascade="all, delete-orphan", uselist=False)
     clauses = relationship("Clause", back_populates="document", cascade="all, delete-orphan")
-    chat_sessions = relationship("ChatSession", back_populates="document")

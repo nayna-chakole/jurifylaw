@@ -1,4 +1,4 @@
-"""LLM Service using Groq for Legal Contract Analysis and RAG Generation."""
+"""LLM Service using Groq for Legal Contract Analysis."""
 
 import json
 from typing import Any
@@ -69,24 +69,6 @@ class GroqLLMService:
                 "risk_summary": {"high": 0, "medium": 1, "low": 0},
                 "clauses": [],
             }
-
-    def generate_rag_answer(
-        self, query: str, retrieved_clauses: list[dict[str, str]], history: list[dict[str, str]] | None = None
-    ) -> str:
-        """Generate a grounded legal answer based on retrieved context clauses."""
-        context_str = "\n\n".join([f"[{c.get('title', 'Clause')}]: {c.get('snippet', '')}" for c in retrieved_clauses])
-        system_prompt = (
-            "You are a professional legal AI assistant. Answer the user's question using ONLY the provided "
-            "contract context clauses. Be accurate, cite relevant clauses, and if information is not present, clearly state so.\n\n"
-            f"RELEVANT CONTRACT CONTEXT:\n{context_str or 'No specific clauses found.'}"
-        )
-        messages = [{"role": "system", "content": system_prompt}]
-        if history:
-            for msg in history[-4:]:
-                messages.append({"role": msg.get("role", "user"), "content": msg.get("content", "")})
-        messages.append({"role": "user", "content": query})
-
-        return self._call_groq(messages, temperature=0.2)
 
 
 _llm_service = None

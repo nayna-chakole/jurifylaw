@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
-from app.api.routes import analysis, auth, chat, documents, health
+from app.api.routes import analysis, auth, documents, health
 from app.core.config import get_settings
 
 
@@ -43,4 +43,3 @@ app.include_router(health.router)
 app.include_router(auth.router)
 app.include_router(documents.router)
 app.include_router(analysis.router)
-app.include_router(chat.router)

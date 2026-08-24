@@ -52,11 +52,10 @@ def default_analysis_client(payload: dict) -> dict:
             ],
         }
 
-    # DIRECT AI INTEGRATION: Groq LLM + Azure AI Foundry Embeddings
+    # DIRECT AI INTEGRATION: Groq LLM Contract Analysis
     from pathlib import Path
     from pypdf import PdfReader
     from app.services.llm_service import get_llm_service
-    from app.services.chroma_service import index_document_clauses
 
     storage_path = Path(settings.upload_dir) / payload["storage_path"]
     doc_text = ""
@@ -85,10 +84,6 @@ def default_analysis_client(payload: dict) -> dict:
                     ob["due_date"] = datetime.strptime(ob["due_date"], "%Y-%m-%d").date()
                 except Exception:
                     ob["due_date"] = None
-
-    # Automatically index extracted clauses into vector store with Azure AI Foundry embeddings
-    if "document_id" in payload:
-        index_document_clauses(payload["document_id"], analysis_data.get("clauses", []))
 
     return analysis_data
 

@@ -12,14 +12,12 @@ os.environ.setdefault("JWT_SECRET", "test-secret-key")
 os.environ.setdefault("JWT_ALGORITHM", "HS256")
 os.environ.setdefault("JWT_EXPIRE_MINUTES", "60")
 os.environ.setdefault("AI_SERVICE_URL", "http://mock-ai")
-os.environ.setdefault("RAG_SERVICE_URL", "http://mock-rag")
 os.environ.setdefault("UPLOAD_DIR", "test_uploads")
 os.environ.setdefault("REDIS_URL", "redis://localhost:6379/0")
 os.environ.setdefault("LLM_API_KEY", "test-llm-key")
 os.environ.setdefault("MAX_UPLOAD_SIZE_MB", "5")
 os.environ.setdefault("CORS_ORIGINS", '["http://localhost:3000"]')
 os.environ.setdefault("USE_MOCK_AI_SERVICE", "true")
-os.environ.setdefault("USE_MOCK_RAG_SERVICE", "true")
 
 from app.api.deps import get_db
 from app.core.database import Base
