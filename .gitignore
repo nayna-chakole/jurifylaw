@@ -1,2 +1,6 @@
 ai/models/checkpoints/
 ai/llm/.llm_cache/
+.env
+*.env
+!.env.example
+__pycache__/
