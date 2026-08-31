@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
-from app.api.routes import analysis, auth, documents, health
+from app.api.routes import analysis, auth, chat, documents, health
 from app.core.config import get_settings
 
 
@@ -14,13 +14,23 @@ app = FastAPI(title="JurifyLaw Backend", version="1.0.0")
 app.state.limiter = auth.limiter
 app.add_exception_handler(RateLimitExceeded, lambda request, exc: JSONResponse(status_code=429, content={"detail": "Rate limit exceeded"}))
 app.add_middleware(SlowAPIMiddleware)
+
+cors_origins = settings.cors_origins or ["*"]
+allow_all = "*" in cors_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins,
+    allow_origins=cors_origins if not allow_all else ["*"],
+    allow_origin_regex=r"^https?://.*$" if allow_all else None,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/")
+def root():
+    return {"message": "JurifyLaw API is running", "docs": "/docs", "health": "/health"}
 
 
 @app.exception_handler(RequestValidationError)
@@ -43,3 +53,4 @@ app.include_router(health.router)
 app.include_router(auth.router)
 app.include_router(documents.router)
 app.include_router(analysis.router)
+app.include_router(chat.router)

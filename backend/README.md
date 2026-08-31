@@ -4,7 +4,7 @@
 
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Python 3.11+](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Store-orange?style=for-the-badge)
+![FAISS](https://img.shields.io/badge/FAISS-Vector%20Store-orange?style=for-the-badge)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
 **High-Performance Asynchronous Legal Document Processing, Semantic Risk Scoring, and RAG Precedent Pipeline.**
@@ -17,7 +17,7 @@ Author: **Amul Thantharate** (*Junior Cloud Engineer*)
 
 ## ⚡ Overview
 
-JurifyLaw Backend is built with **FastAPI**, **SQLAlchemy 2.0**, and **ChromaDB**. It provides endpoints for:
+JurifyLaw Backend is built with **FastAPI**, **SQLAlchemy 2.0**, and **FAISS** (via the AI service). It provides endpoints for:
 - User registration, authentication, and session auditing (JWT + bcrypt).
 - Secure multi-format document ingestion (PDF, DOCX).
 - Automated clause segmentation, risk categorization, and entity extraction.
@@ -37,7 +37,7 @@ backend/
 │   ├── models/              # SQLAlchemy database ORM entities
 │   ├── repositories/        # Database query abstractions
 │   ├── schemas/             # Pydantic validation schemas
-│   ├── services/            # AI analysis, ChromaDB, document parsing, RAG
+│   ├── services/            # AI analysis, document parsing, RAG (via AI service)
 │   └── utils/               # File validator & helpers
 ├── migrations/              # Alembic database migrations
 ├── tests/                   # Pytest test suite (6/6 passing)

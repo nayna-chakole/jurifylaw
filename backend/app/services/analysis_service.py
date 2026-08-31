@@ -52,7 +52,7 @@ def default_analysis_client(payload: dict) -> dict:
             ],
         }
 
-    # DIRECT AI INTEGRATION: Groq LLM Contract Analysis
+    # DIRECT AI INTEGRATION: Coordinate with ai_service or Groq LLM Contract Analysis
     from pathlib import Path
     from pypdf import PdfReader
     from app.services.llm_service import get_llm_service
@@ -74,7 +74,22 @@ def default_analysis_client(payload: dict) -> dict:
     if not doc_text.strip():
         doc_text = f"Contract document ID {payload.get('document_id', '1')} for {payload.get('filename', 'agreement')}"
 
-    analysis_data = get_llm_service().analyze_contract_text(doc_text)
+    # First attempt: Try AI Service analyze endpoint if available
+    analysis_data = None
+    try:
+        with httpx.Client(timeout=float(settings.request_timeout_seconds)) as client:
+            ai_resp = client.post(
+                f"{settings.ai_service_url.rstrip('/')}/analyze",
+                json={"document_text": doc_text, "filename": payload.get("filename", "agreement")},
+            )
+            if ai_resp.status_code == 200:
+                analysis_data = ai_resp.json()
+    except Exception:
+        analysis_data = None
+
+    # Fallback to direct Groq LLM analysis
+    if not analysis_data:
+        analysis_data = get_llm_service().analyze_contract_text(doc_text)
 
     # Format due_date strings into date objects for SQLAlchemy persistence
     for clause in analysis_data.get("clauses", []):
