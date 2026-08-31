@@ -23,13 +23,14 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // In authenticated app pages (Dashboard, Analysis, History, Profile), show app links
+  // In authenticated app pages (Dashboard, Analysis, History, Profile, Chat), show app links
   const isAppRoute =
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/analysis") ||
     pathname.startsWith("/history") ||
     pathname.startsWith("/profile") ||
-    pathname.startsWith("/upload");
+    pathname.startsWith("/upload") ||
+    pathname.startsWith("/chat");
 
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-purple-100/80 shadow-xs">
@@ -86,6 +87,15 @@ export default function Navbar() {
                 }`}
               >
                 Dashboard
+              </Link>
+              <Link
+                href="/chat"
+                className={`transition-colors hover:text-[#7C3AED] flex items-center gap-1.5 ${
+                  pathname === "/chat" ? "text-[#7C3AED] font-semibold" : ""
+                }`}
+              >
+                <MessageSquare className="h-4 w-4" />
+                <span>AI Assistant</span>
               </Link>
               <Link
                 href="/history"
@@ -194,6 +204,13 @@ export default function Navbar() {
                 className="block py-2 text-slate-700 hover:text-[#7C3AED]"
               >
                 Dashboard
+              </Link>
+              <Link
+                href="/chat"
+                onClick={() => setMobileOpen(false)}
+                className="block py-2 text-slate-700 hover:text-[#7C3AED]"
+              >
+                Legal AI Assistant
               </Link>
               <Link
                 href="/history"

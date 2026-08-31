@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={sans.variable}>
+    <html lang="en" className={sans.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="font-sans antialiased bg-[#FAF8FF] text-[#1E1B4B] min-h-screen flex flex-col justify-between">
         <Providers>
           <div className="flex flex-col min-h-screen">

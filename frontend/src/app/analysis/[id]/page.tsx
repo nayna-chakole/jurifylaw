@@ -16,9 +16,12 @@ import {
   Loader2,
   Calendar,
   UserCheck,
+  MessageSquare,
+  Sparkles,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { analysisAPI, documentsAPI } from "@/lib/api";
+import LegalChatWidget from "@/components/chat/LegalChatWidget";
 
 interface RiskResult {
   id?: number;
@@ -294,6 +297,13 @@ export default function AnalysisResultPage() {
           </div>
 
           <div className="flex items-center gap-3">
+            <Link
+              href={`/chat?doc=${id}`}
+              className="px-4 py-2.5 rounded-xl border border-purple-200 text-[#7C3AED] bg-white hover:bg-purple-50 text-xs font-semibold shadow-xs inline-flex items-center gap-2 transition"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+              <span>Ask AI in Full Screen</span>
+            </Link>
             <button
               type="button"
               onClick={handleDownload}
@@ -532,6 +542,13 @@ export default function AnalysisResultPage() {
             View Document History
           </Link>
         </div>
+
+        {/* Floating AI Legal Chatbot Grounded in This Document */}
+        <LegalChatWidget
+          documentId={isNaN(Number(id)) ? undefined : Number(id)}
+          documentName={documentName}
+          floating={true}
+        />
       </div>
     </div>
   );

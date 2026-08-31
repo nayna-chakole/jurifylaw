@@ -9,12 +9,14 @@ import {
   User,
   LogOut,
   Scale,
+  MessageSquare,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 
 const sidebarItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/upload", label: "Upload Document", icon: UploadCloud },
+  { href: "/chat", label: "Legal Assistant", icon: MessageSquare },
   { href: "/history", label: "Recent Documents", icon: FileText },
   { href: "/profile", label: "Profile", icon: User },
 ];
@@ -24,7 +26,7 @@ export default function Sidebar() {
   const { logout } = useAuth();
 
   return (
-    <aside className="hidden md:flex w-64 bg-white border-r border-purple-100/80 p-5 flex-col justify-between shrink-0 min-h-[calc(100vh-64px)] shadow-xs">
+    <aside className="hidden md:flex w-64 bg-white border-r border-purple-100/80 p-5 flex-col justify-between shrink-0 h-full min-h-[calc(100vh-64px)] shadow-xs overflow-y-auto">
       <div className="space-y-6">
         {/* Navigation Items */}
         <nav className="space-y-1.5">

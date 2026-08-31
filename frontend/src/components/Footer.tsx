@@ -13,7 +13,8 @@ export default function Footer() {
     pathname.startsWith("/analysis") ||
     pathname.startsWith("/upload") ||
     pathname.startsWith("/profile") ||
-    pathname.startsWith("/history");
+    pathname.startsWith("/history") ||
+    pathname.startsWith("/chat");
 
   if (isAppRoute) {
     return null;
