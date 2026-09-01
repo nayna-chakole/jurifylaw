@@ -74,7 +74,3 @@ pytest -v
 
 ---
 
-## 👤 Author
-
-**Amul Thantharate** — *Junior Cloud Engineer*  
-GitHub: [@AmulThantharate](https://github.com/AmulThantharate)
