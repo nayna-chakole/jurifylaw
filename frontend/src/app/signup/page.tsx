@@ -223,8 +223,7 @@ export default function SignupPage() {
             <BookOpen className="h-8 w-8 text-purple-300/80 -scale-x-100" />
           </div>
         </div>
-      </motion.div>
-
+      </moti
       {/* Terms Modal */}
       <TermsModal
         isOpen={isTermsOpen}
