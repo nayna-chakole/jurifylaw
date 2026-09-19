@@ -30,6 +30,7 @@ class DocumentUploadResponse(BaseModel):
     document_id: int
     filename: str
     status: DocumentStatus
+    Error: Code
 
 
 class DocumentListResponse(BaseModel):
